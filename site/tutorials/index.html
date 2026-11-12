@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ODE server tutorials</title>
+  <meta name="description" content="Step-by-step video tutorials for setting up a Synkronus server for Open Data Ensemble." />
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <link rel="apple-touch-icon" href="../img/ode-180.png" />
+  <meta name="theme-color" content="#3B7A4B" />
+  <meta property="og:title" content="ODE server tutorials" />
+  <meta property="og:description" content="Step-by-step videos: get your own Synkronus server, then connect your app and phones." />
+  <meta property="og:image" content="https://ode-server.nahati.online/img/ode-180.png" />
+  <link rel="stylesheet" href="../css/ode-brand.css" />
+  <link rel="stylesheet" href="../css/site.css" />
+  <style>
+    .tut{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:18px;counter-reset:t}
+    .tut>li{counter-increment:t;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .tut-head{display:flex;gap:12px;align-items:flex-start;margin:0 0 6px}
+    .tut-head::before{content:counter(t);flex:none;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:15px}
+    .tut h2{font-size:20px;margin:3px 0 0}
+    .tut p{margin:0 0 12px;color:var(--muted)}
+    .tut .ode-yt{margin-top:12px}
+    .tut .ode-btn{height:40px;padding:0 16px;font-size:.92rem}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the tutorials</a>
+  <header class="topbar">
+    <a class="brandmark" href="https://ode-server.nahati.online/"><img src="../img/ode-64.png" alt="" width="32" height="32" /><span><strong>ODE</strong> Server Setup</span></a>
+    <nav class="ode-links" aria-label="ODE tools">
+      <a href="https://ode-app.nahati.online/">Build your app</a>
+      <a href="https://ode-server.nahati.online/">Set up your server</a>
+      <a href="https://ode-server.nahati.online/tutorials/" aria-current="page">Tutorials</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <p class="eyebrow">Open Data Ensemble</p>
+      <h1>Server tutorials, step by step</h1>
+      <p class="lead">Short videos that walk through getting your own Synkronus server, then connecting your app and phones. Watch them in order, or jump to the route you need. Videos load from YouTube only when you press play.</p>
+    </section>
+    <ol class="tut" id="tut" aria-label="Tutorials"></ol>
+    <div class="ode-next">
+      <div><b>Ready for your app?</b><span>Build your forms and branding in the App Builder, then upload the bundle to your server.</span></div>
+      <a class="ode-btn primary" href="https://ode-app.nahati.online/">Build or upload your app</a>
+    </div>
+  </main>
+
+  <footer class="ode-foot">
+    <p class="ode-foot-title"><img src="../img/ode-64.png" alt="" width="24" height="24" />Community tools for Open Data Ensemble</p>
+    <nav aria-label="Project links">
+      <a href="https://opendataensemble.org">opendataensemble.org</a>
+      <a href="https://github.com/najuna-brian/ode-app-builder">App Builder on GitHub</a>
+      <a href="https://github.com/najuna-brian/ode-server-setup">Server setup on GitHub</a>
+      <a href="https://github.com/OpenDataEnsemble/synkronus-quickstart">synkronus-quickstart</a>
+    </nav>
+    <p class="ode-credit">Hosted and supported by <a href="https://nahati.online">Nahati Technologies</a> as a contribution to Open Data Ensemble. We claim no ownership; all code is open source under its original licences and the ODE project may adopt, move or rehost these tools at any time.</p>
+  </footer>
+
+  <script src="../js/ode-videos.js"></script>
+  <script>
+  (function () {
+    var list = document.getElementById('tut');
+    function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+    ODE_VIDEOS.forEach(function (v) {
+      var li = el('li'); li.id = 'step-' + v.key;
+      var head = el('div', 'tut-head'); head.appendChild(el('h2', '', v.title)); li.appendChild(head);
+      li.appendChild(el('p', '', v.summary));
+      if (v.cmd) {
+        var box = el('div', 'code'), pre = el('pre', '', v.cmd), btn = el('button', 'copy', 'Copy');
+        btn.type = 'button';
+        btn.addEventListener('click', function () {
+          var done = function () { btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1800); };
+          if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(v.cmd).then(done);
+        });
+        box.appendChild(pre); box.appendChild(btn); li.appendChild(box);
+      }
+      if (v.link) { var a = el('a', 'ode-btn', v.link.text); a.href = v.link.href; li.appendChild(a); }
+      li.appendChild(odeVideo(v));
+      list.appendChild(li);
+    });
+  })();
+  </script>
+</body>
+</html>

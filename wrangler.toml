@@ -1,0 +1,12 @@
+# Cloudflare deploy: a Worker that only serves the static site/ folder.
+# Deploy with: npm run deploy   (needs `npx wrangler login` once)
+name = "ode-server-setup"
+compatibility_date = "2026-10-01"
+
+[assets]
+directory = "./site"
+not_found_handling = "404-page"
+
+[[routes]]
+pattern = "ode-server.nahati.online"
+custom_domain = true
